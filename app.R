@@ -1,6 +1,8 @@
 library(shiny)
 library(shinyjs)
 
+addResourcePath("js", "js")
+
 ui <- tagList(
   useShinyjs(),
   includeCSS("style.css"),
@@ -11,12 +13,12 @@ ui <- tagList(
 
   div(id="controls",
              actionButton(inputId = "recordButton", label = "Record"),
-    disabled(actionButton(inputId = "  stopButton", label = "Stop"  ))
+    disabled(actionButton(inputId = "stopButton", label = "Stop"  ))
   ),
 
   br(), div(id="formats"),
   br(), div(id="log"),
-  br(), div(id="recordingslist"),
+  br(), tags$ol(id="recordingsList"),
 
   includeScript("js/WebAudioRecorder.min.js"), extendShinyjs("jsShiny/app.js")
 )
