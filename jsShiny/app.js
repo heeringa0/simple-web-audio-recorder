@@ -23,6 +23,21 @@
    SOFTWARE.
 */
 
+var gumStream;                // stream from getUserMedia()
+var recorder;                 // WebAudioRecorder object
+var input;                    // MediaStreamAudioSourceNode  we'll be recording
+var encodingType;             // holds selected encoding for resulting audio (file)
+var encodeAfterRecord = true; // when to encode
+var URL; // webkitURL is deprecated but nevertheless
+
+// shim for AudioContext when it's not avb.
+var AudioContext;
+var audioContext; //new audio context to help us record
+
+var encodingTypeSelect;
+var recordButton;
+var stopButton;
+
 // helper function
 function __log(e, data)
 {
@@ -161,22 +176,11 @@ function createDownloadLink(blob,encoding)
 
 shinyjs.webAudioRecorder = function()
 {
-  // webkitURL is deprecated but nevertheless
   URL = window.URL || window.webkitURL;
-
-  var gumStream;                // stream from getUserMedia()
-  var recorder;                 // WebAudioRecorder object
-  var input;                    // MediaStreamAudioSourceNode  we'll be recording
-  var encodingType;             // holds selected encoding for resulting audio (file)
-  var encodeAfterRecord = true; // when to encode
-
-  // shim for AudioContext when it's not avb.
-  var AudioContext = window.AudioContext || window.webkitAudioContext;
-  var audioContext; //new audio context to help us record
-
-  var encodingTypeSelect = document.getElementById("encodingTypeSelect");
-  var recordButton = document.getElementById("recordButton");
-  var stopButton = document.getElementById("stopButton");
+  AudioContext = window.AudioContext || window.webkitAudioContext;
+  encodingTypeSelect = document.getElementById("encodingTypeSelect");
+  recordButton = document.getElementById("recordButton");
+  stopButton = document.getElementById("stopButton");
 
   // add events to those 2 buttons
   recordButton.addEventListener("click", startRecording);
