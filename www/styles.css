@@ -1,0 +1,19 @@
+#recordButton {
+    color: #c5313d;
+    font-weight: bold;
+}
+
+#recordButton:disabled {
+    color: grey;
+    font-weight: normal;
+}
+
+#stopButton {
+    color: #1391ab;
+    font-weight: bold;
+}
+
+#stopButton:disabled {
+    color: grey;
+    font-weight: normal;
+}
